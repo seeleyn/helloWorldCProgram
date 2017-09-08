@@ -1,6 +1,6 @@
 #include <stdio.h>
+#include <string.h>
 #include "functions.h"
-
 
 
 void basic() {
@@ -38,13 +38,24 @@ void arrays() {
   printf("*(tmpPtr+1) is %d\n",*(tmpPtr+1));
   printf("*(tmpPtr+2) is %d\n",*(tmpPtr+2));
   printf("*(tmpPtr+3) is %d\n",*(tmpPtr+3));
+}
 
+void string_examples() {
+  char* str = "hello world?\n";
+  printf("%s",str);
+  int len = strlen(str);
+  printf("strlen(str) returned  %d\n",len);
+  int len2 = strlen2(str);
+  printf("strlen2(str) returned %d\n",len);
+  
 }
 
 int main(void)
 {
   printf("\n\n\n");
   //basic();
-  arrays();
+  //arrays();
+  string_examples();
+  printf("\n\n");
   return 0;
 }
