@@ -40,13 +40,37 @@ void arrays() {
   printf("*(tmpPtr+3) is %d\n",*(tmpPtr+3));
 }
 
+void safePrintln(const char* input) {
+  if (input != NULL) {
+    printf("%s\n",input);
+  } else {
+    printf("NULL\n");
+  }
+}
+
 void string_examples() {
   char* str = "hello world?\n";
   printf("%s",str);
   int len = strlen(str);
   printf("strlen(str) returned  %d\n",len);
   int len2 = strlen2(str);
-  printf("strlen2(str) returned %d\n",len);
+  printf("strlen2(str) returned %d\n\n\n",len);
+  
+
+  char* haystack = "abcdefghijklmnopqrstuvwxyz";
+  char needle = 't';
+  char* locationPtr = strchr(haystack,needle);
+  char* locationPtr2 = strchr2(haystack,needle);
+  printf("strchr found %s\n",locationPtr);
+  printf("strchr2 found %s\n",locationPtr2);
+
+  char* locationPtr4 = strchr2(NULL,needle);
+  printf("strchr2 found ");
+  safePrintln(locationPtr4);
+
+  char* locationPtr5 = strchr2(haystack,'A');
+  printf("strchr2 found ");
+  safePrintln(locationPtr5);
   
 }
 

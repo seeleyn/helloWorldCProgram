@@ -9,4 +9,6 @@ int difference(int first, int second);
 
 size_t strlen2(const char* str);
 
+char* strchr2(const char* str, int c);
+
 #endif

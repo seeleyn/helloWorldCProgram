@@ -20,3 +20,66 @@ size_t strlen2(const char* str) {
   }
   return length;
 }
+
+
+
+char* strchr2(const char* str, int c) {
+  if (str==NULL) {
+    return NULL;
+  }
+  const char* charPtr = str;
+  while (*charPtr != '\0') {
+    if (*charPtr == c) {
+      return (char*) charPtr;
+    }
+    charPtr++;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
