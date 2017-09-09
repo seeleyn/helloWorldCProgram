@@ -42,7 +42,7 @@ void arrays() {
 
 void safePrintln(const char* input) {
   if (input != NULL) {
-    printf("%s\n",input);
+      printf("'%s'\n",input);
   } else {
     printf("NULL\n");
   }
@@ -74,12 +74,48 @@ void string_examples() {
   
 }
 
+void string_examples2() {
+
+  char* result = strstr2(NULL,NULL);
+  printf("strstr2: expect NULL found ");
+  safePrintln(result);
+
+  result = strstr2("",NULL);
+  printf("strstr2: expect NULL found ");
+  safePrintln(result);
+
+  result = strstr2(NULL,"");
+  printf("strstr2: expect NULL found ");
+  safePrintln(result);
+
+//  result = strstr2("","");
+//  printf("strstr2: expect '' found "); //this is a special case
+//  safePrintln(result);
+
+  result = strstr2("abc def","abc");
+  printf("strstr2: expect 'abc def' found ");
+  safePrintln(result);
+
+  result = strstr2("abc def","c d");
+  printf("strstr2: expect 'c def' found ");
+  safePrintln(result);
+
+  result = strstr2("abc def","def");
+  printf("strstr2: expect 'def' found ");
+  safePrintln(result);
+
+  result = strstr2("abc def","efg");
+  printf("strstr2: expect NULL found ");
+  safePrintln(result);
+}
+
 int main(void)
 {
   printf("\n\n\n");
   //basic();
   //arrays();
-  string_examples();
+  //string_examples();
+  string_examples2();
   printf("\n\n");
   return 0;
 }

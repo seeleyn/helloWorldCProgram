@@ -11,4 +11,7 @@ size_t strlen2(const char* str);
 
 char* strchr2(const char* str, int c);
 
+
+char* strstr2(const char* haystack, const char* needle);
+
 #endif

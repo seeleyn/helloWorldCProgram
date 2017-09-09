@@ -37,7 +37,26 @@ char* strchr2(const char* str, int c) {
 }
 
 
-
+char* strstr2(const char* haystack, const char* needle) {
+  if (haystack == NULL || needle == NULL) {
+    return NULL;
+  }
+  while (haystack[0] != '\0') {
+    if (haystack[0] == needle[0]) {
+      const char* h = haystack;
+      const char* n = needle;
+      while (h[0] == n[0] && n[0] != '\0') {
+        h++;
+        n++;
+      }
+      if (n[0] == '\0') {
+        return (char*) haystack;
+      }
+    }
+    haystack++;
+  }
+  return NULL;
+}
 
 
 
