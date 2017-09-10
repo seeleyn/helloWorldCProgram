@@ -3,6 +3,7 @@
 #include "functions.h"
 
 
+
 void basic() {
   int radius=25;
   int *radiusPtr = &radius;
@@ -40,7 +41,7 @@ void arrays() {
   printf("*(tmpPtr+3) is %d\n",*(tmpPtr+3));
 }
 
-void safePrintln(const char* input) {
+void safe_println(const char* input) {
   if (input != NULL) {
       printf("'%s'\n",input);
   } else {
@@ -66,11 +67,11 @@ void string_examples() {
 
   char* locationPtr4 = strchr2(NULL,needle);
   printf("strchr2 found ");
-  safePrintln(locationPtr4);
+  safe_println(locationPtr4);
 
   char* locationPtr5 = strchr2(haystack,'A');
   printf("strchr2 found ");
-  safePrintln(locationPtr5);
+  safe_println(locationPtr5);
   
 }
 
@@ -78,35 +79,35 @@ void string_examples2() {
 
   char* result = strstr2(NULL,NULL);
   printf("strstr2: expect NULL found ");
-  safePrintln(result);
+  safe_println(result);
 
   result = strstr2("",NULL);
   printf("strstr2: expect NULL found ");
-  safePrintln(result);
+  safe_println(result);
 
   result = strstr2(NULL,"");
   printf("strstr2: expect NULL found ");
-  safePrintln(result);
+  safe_println(result);
 
 //  result = strstr2("","");
 //  printf("strstr2: expect '' found "); //this is a special case
-//  safePrintln(result);
+//  safe_println(result);
 
   result = strstr2("abc def","abc");
   printf("strstr2: expect 'abc def' found ");
-  safePrintln(result);
+  safe_println(result);
 
   result = strstr2("abc def","c d");
   printf("strstr2: expect 'c def' found ");
-  safePrintln(result);
+  safe_println(result);
 
   result = strstr2("abc def","def");
   printf("strstr2: expect 'def' found ");
-  safePrintln(result);
+  safe_println(result);
 
   result = strstr2("abc def","efg");
   printf("strstr2: expect NULL found ");
-  safePrintln(result);
+  safe_println(result);
 }
 
 int main(void)
