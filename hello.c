@@ -3,6 +3,23 @@
 #include "functions.h"
 
 
+void assert_equals(char* expected, char* actual) {
+  int expected_is_null = (expected == NULL) ? 1 : 0;
+  int actual_is_null = (actual == NULL) ? 1 : 0;
+  int passed = 0;
+
+  if (expected_is_null || actual_is_null) {
+    passed = (expected_is_null && actual_is_null) ? 1 : 0;
+  } else {
+    passed = (strcmp(expected,actual) == 0) ? 1 : 0;
+  }
+  passed ? printf("PASS") : printf("FAILURE");
+  printf(": expected=");
+  expected_is_null ? printf("NULL") : printf("'%s'",expected);
+  printf(", actual=");
+  actual_is_null ? printf("NULL") : printf("'%s'",actual);
+  printf("\n");
+}
 
 void basic() {
   int radius=25;
@@ -78,36 +95,29 @@ void string_examples() {
 void string_examples2() {
 
   char* result = strstr2(NULL,NULL);
-  printf("strstr2: expect NULL found ");
-  safe_println(result);
+  assert_equals(NULL, result);
 
   result = strstr2("",NULL);
-  printf("strstr2: expect NULL found ");
-  safe_println(result);
+  assert_equals(NULL, result);
 
   result = strstr2(NULL,"");
-  printf("strstr2: expect NULL found ");
-  safe_println(result);
+  assert_equals(NULL, result);
 
 //  result = strstr2("","");
 //  printf("strstr2: expect '' found "); //this is a special case
 //  safe_println(result);
 
   result = strstr2("abc def","abc");
-  printf("strstr2: expect 'abc def' found ");
-  safe_println(result);
+  assert_equals("abc def",result);
+  
+  result = strstr2("abc def","def");
+  assert_equals("def",result);
 
   result = strstr2("abc def","c d");
-  printf("strstr2: expect 'c def' found ");
-  safe_println(result);
-
-  result = strstr2("abc def","def");
-  printf("strstr2: expect 'def' found ");
-  safe_println(result);
+  assert_equals("c def",result);
 
   result = strstr2("abc def","efg");
-  printf("strstr2: expect NULL found ");
-  safe_println(result);
+  assert_equals(NULL,result);
 }
 
 int main(void)
