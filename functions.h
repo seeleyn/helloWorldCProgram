@@ -2,6 +2,7 @@
 #define FUNCTIONS_H
 
 #include <stdio.h> //for size_t
+#include <stdbool.h>
 
 int sum(int first, int second);
 
@@ -13,5 +14,9 @@ char* strchr2(const char* str, int c);
 
 
 char* strstr2(const char* haystack, const char* needle);
+
+bool starts_with(const char* str, const char* substr);
+
+char* strstr3(const char* haystack, const char* needle);
 
 #endif

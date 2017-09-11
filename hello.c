@@ -18,6 +18,9 @@ void assert_equals(char* expected, char* actual) {
   expected_is_null ? printf("NULL") : printf("'%s'",expected);
   printf(", actual=");
   actual_is_null ? printf("NULL") : printf("'%s'",actual);
+  if (!passed) {
+    printf(" <------------------ FAIL");
+  }
   printf("\n");
 }
 
@@ -94,29 +97,28 @@ void string_examples() {
 
 void string_examples2() {
 
-  char* result = strstr2(NULL,NULL);
+  char* result = strstr3(NULL,NULL);
   assert_equals(NULL, result);
 
-  result = strstr2("",NULL);
+  result = strstr3("",NULL);
   assert_equals(NULL, result);
 
-  result = strstr2(NULL,"");
+  result = strstr3(NULL,"");
   assert_equals(NULL, result);
 
-//  result = strstr2("","");
-//  printf("strstr2: expect '' found "); //this is a special case
-//  safe_println(result);
+  result = strstr3("",""); // Even though I would disagree in the "correct" answer this return NULL
+  assert_equals(NULL, result);
 
-  result = strstr2("abc def","abc");
+  result = strstr3("abc def","abc");
   assert_equals("abc def",result);
   
-  result = strstr2("abc def","def");
+  result = strstr3("abc def","def");
   assert_equals("def",result);
 
-  result = strstr2("abc def","c d");
+  result = strstr3("abc def","c d");
   assert_equals("c def",result);
 
-  result = strstr2("abc def","efg");
+  result = strstr3("abc def","efg");
   assert_equals(NULL,result);
 }
 

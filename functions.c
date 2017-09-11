@@ -59,8 +59,30 @@ char* strstr2(const char* haystack, const char* needle) {
 }
 
 
+bool starts_with(const char* str, const char* substr) {
+  if (str==NULL || substr==NULL) {
+    return false;
+  }
+  while (str[0] == substr[0] && str[0] != '\0') {
+    str++;
+    substr++;
+  }
+  return (substr[0] == '\0');
+}
 
 
+char* strstr3(const char* haystack, const char* needle) {
+  if (haystack==NULL || needle==NULL) {
+    return NULL;
+  }
+  while (haystack[0] != '\0') {
+    if (starts_with(haystack,needle)) {
+      return (char*) haystack;
+    }
+    haystack++;
+  }
+  return NULL;
+}
 
 
 
