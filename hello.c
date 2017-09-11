@@ -3,7 +3,7 @@
 #include "functions.h"
 
 
-void assert_equals(char* expected, char* actual) {
+void assert_equals(const char* expected, const char* actual) {
   int expected_is_null = (expected == NULL) ? 1 : 0;
   int actual_is_null = (actual == NULL) ? 1 : 0;
   int passed = 0;
