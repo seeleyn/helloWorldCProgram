@@ -106,8 +106,11 @@ void string_examples2() {
   result = strstr3(NULL,"");
   assert_equals(NULL, result);
 
-  result = strstr3("",""); // Even though I would disagree in the "correct" answer this return NULL
-  assert_equals(NULL, result);
+  result = strstr3("","");
+  assert_equals("", result);
+
+  result = strstr3("abc def","");
+  assert_equals("abc def", result);
 
   result = strstr3("abc def","abc");
   assert_equals("abc def",result);

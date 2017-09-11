@@ -75,6 +75,7 @@ char* strstr3(const char* haystack, const char* needle) {
   if (haystack==NULL || needle==NULL) {
     return NULL;
   }
+  if (needle[0] == '\0') return (char*)haystack;
   while (haystack[0] != '\0') {
     if (starts_with(haystack,needle)) {
       return (char*) haystack;
