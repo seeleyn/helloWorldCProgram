@@ -138,7 +138,16 @@ void string_examples2() {
 }
 
 void string_examples3() {
-  int result = strcmp2("","");
+  int result = strcmp2(NULL,"");
+  assert_equals_int(-1,result);
+
+  result = strcmp2("",NULL);
+  assert_equals_int(1,result);
+
+  result = strcmp2(NULL,NULL);
+  assert_equals_int(0,result);
+
+  result = strcmp2("","");
   assert_equals_int(0,result);
 
   result = strcmp2("","a");
