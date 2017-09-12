@@ -19,4 +19,6 @@ bool starts_with(const char* str, const char* substr);
 
 char* strstr3(const char* haystack, const char* needle);
 
+int strcmp2(const char* str1, const char* str2);
+
 #endif

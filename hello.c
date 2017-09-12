@@ -3,6 +3,18 @@
 #include "functions.h"
 
 
+void assert_equals_int(int expected, int actual) {
+  bool passed = (expected == actual);
+  passed ? printf("PASS") : printf("FAILURE");
+  printf(": expected=%d",expected);
+  printf(", actual=%d",actual);
+  if (!passed) {
+    printf(" <------------------ FAIL");
+  }
+  printf("\n");
+}
+
+
 void assert_equals(const char* expected, const char* actual) {
   int expected_is_null = (expected == NULL) ? 1 : 0;
   int actual_is_null = (actual == NULL) ? 1 : 0;
@@ -125,13 +137,56 @@ void string_examples2() {
   assert_equals(NULL,result);
 }
 
+void string_examples3() {
+  int result = strcmp2("","");
+  assert_equals_int(0,result);
+
+  result = strcmp2("","a");
+  assert_equals_int(-1,result);
+
+  result = strcmp2("a","");
+  assert_equals_int(1,result);
+
+  result = strcmp2("apple","bananna");
+  assert_equals_int(-1,result);
+
+  result = strcmp2("apple","apple");
+  assert_equals_int(0,result);
+
+  result = strcmp2("bananna","apple");
+  assert_equals_int(1,result);
+
+  result = strcmp2("apple","applejack");
+  assert_equals_int(-1,result);
+
+  result = strcmp2("applejack","apple");
+  assert_equals_int(1,result);
+
+  result = strcmp2("APPLE","apple");
+  assert_equals_int(-1,result);
+
+  result = strcmp2("apple","APPLE");
+  assert_equals_int(1,result);
+
+  result = strcmp2("123","124");
+  assert_equals_int(-1,result);
+
+  result = strcmp2("124","123");
+  assert_equals_int(1,result);
+
+  result = strcmp2("123","123");
+  assert_equals_int(0,result);
+}
+
+
 int main(void)
 {
   printf("\n\n\n");
   //basic();
   //arrays();
   //string_examples();
-  string_examples2();
+  //string_examples2();
+  string_examples3();
   printf("\n\n");
   return 0;
 }
