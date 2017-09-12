@@ -21,4 +21,6 @@ char* strstr3(const char* haystack, const char* needle);
 
 int strcmp2(const char* str1, const char* str2);
 
+char* strcat2(char* dest, char* src);
+
 #endif

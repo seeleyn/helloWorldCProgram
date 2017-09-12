@@ -106,7 +106,23 @@ int strcmp2(const char* str1, const char* str2) {
   }
 }
 
-
+//Assume that dest has enough memory to hold dest+src
+char* strcat2(char* dest, char* src) {
+  if (dest==NULL || src==NULL) {
+    return NULL; //TODO is this correct?
+  }
+  char* tmp_dest = dest;
+  while (tmp_dest[0] != '\0') {
+    tmp_dest++;
+  }
+  while (src[0] != '\0') {
+    tmp_dest[0] = src[0];
+    tmp_dest++;
+    src++;
+  }
+  tmp_dest[0] = '\0';
+  return dest;
+}
 
 
 

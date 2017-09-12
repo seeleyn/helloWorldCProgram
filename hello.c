@@ -187,6 +187,51 @@ void string_examples3() {
   assert_equals_int(0,result);
 }
 
+void concat_examples() {
+  char str1[101];
+  char str2[101];
+  char str3[101];
+  strcpy(str1,"abc");
+  strcpy(str2,"def");
+  strcpy(str3,"");
+  
+  printf("str1 is '%s'\n",str1);
+  printf("str2 is '%s'\n",str2);
+  printf("str3 is '%s'\n",str3);
+
+  char* result = strcat2(str1,"def");
+  assert_equals("abcdef",result);
+
+  strcpy(str1,"");  
+  strcpy(str2,"def");  
+  result = strcat2(str1,str2);
+  assert_equals("def",result);
+
+  strcpy(str1,"abc");  
+  strcpy(str2,"");  
+  result = strcat2(str1,str2);
+  assert_equals("abc",result);
+
+  strcpy(str1,"");  
+  strcpy(str2,"");  
+  result = strcat2(str1,str2);
+  assert_equals("",result);
+
+  strcpy(str1,"");  
+  strcpy(str2,"");  
+  result = strcat2(NULL,str2);
+  assert_equals(NULL,result);
+
+  strcpy(str1,"");  
+  strcpy(str2,"");  
+  result = strcat2(str1,NULL);
+  assert_equals(NULL,result);
+
+  strcpy(str1,"");  
+  strcpy(str2,"");  
+  result = strcat2(NULL,NULL);
+  assert_equals(NULL,result);
+}
 
 int main(void)
 {
@@ -195,7 +240,8 @@ int main(void)
   //arrays();
   //string_examples();
   //string_examples2();
-  string_examples3();
+  //string_examples3();
+  concat_examples();
   printf("\n\n");
   return 0;
 }
