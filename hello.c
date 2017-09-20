@@ -251,28 +251,56 @@ int get_length(struct node* head) {
   return length;
 }
 
+struct node* get_nth(struct node* head, int n) {
+  if (head == NULL || n<0) {
+    return NULL;
+  }
+  int current_index = 0;
+  struct node* current = head;
+  while (current_index < n) {
+    if (current == NULL) {
+      return NULL;
+    }
+    current = current->next;
+    current_index++;
+  }
+  return current;
+}
+
+
 struct node* linked_list_examples() {
   struct node alpha;
-  alpha.data = 1;
+  alpha.data = 100;
   struct node bravo;
-  bravo.data = 2;
+  bravo.data = 101;
   alpha.next = &bravo;
   struct node charlie;
-  charlie.data = 3;
+  charlie.data = 102;
   bravo.next = &charlie;
   charlie.next = NULL;
   
   int length = get_length(&alpha);
   assert_equals_int(3,length);
-
   length = get_length(&bravo);
   assert_equals_int(2,length);
-
   length = get_length(&charlie);
   assert_equals_int(1,length);
-
   length = get_length(NULL);
   assert_equals_int(0,length);
+
+  struct node* result = get_nth(&alpha,0);
+  assert_equals_int(100,result->data);
+  result = get_nth(&alpha,1);
+  assert_equals_int(101,result->data);
+  result = get_nth(&alpha,2);
+  assert_equals_int(102,result->data);
+  result = get_nth(&alpha,3);
+  assert_equals(NULL,result);
+  result = get_nth(&alpha,10);
+  assert_equals(NULL,result);
+  result = get_nth(NULL,10);
+  assert_equals(NULL,result);
+//  printf("result->data is %d\n",result->data);
 }
 
 int main(void)
