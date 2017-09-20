@@ -233,6 +233,48 @@ void concat_examples() {
   assert_equals(NULL,result);
 }
 
+struct node {
+  int data;
+  struct node* next;
+};
+
+int get_length(struct node* head) {
+  if (head == NULL) {
+    return 0;
+  }
+  int length = 0;
+  struct node* current = head;
+  while (current != NULL) {
+    current = current->next;
+    length++;
+  }
+  return length;
+}
+
+struct node* linked_list_examples() {
+  struct node alpha;
+  alpha.data = 1;
+  struct node bravo;
+  bravo.data = 2;
+  alpha.next = &bravo;
+  struct node charlie;
+  charlie.data = 3;
+  bravo.next = &charlie;
+  charlie.next = NULL;
+  
+  int length = get_length(&alpha);
+  assert_equals_int(3,length);
+
+  length = get_length(&bravo);
+  assert_equals_int(2,length);
+
+  length = get_length(&charlie);
+  assert_equals_int(1,length);
+
+  length = get_length(NULL);
+  assert_equals_int(0,length);
+}
+
 int main(void)
 {
   printf("\n\n\n");
@@ -241,7 +283,8 @@ int main(void)
   //string_examples();
   //string_examples2();
   //string_examples3();
-  concat_examples();
+  //concat_examples();
+  linked_list_examples();
   printf("\n\n");
   return 0;
 }
