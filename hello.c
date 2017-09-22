@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "functions.h"
 
@@ -267,7 +268,7 @@ struct node* get_nth(struct node* head, int n) {
   return current;
 }
 
-
+/*
 struct node* linked_list_examples() {
   struct node alpha;
   alpha.data = 100;
@@ -301,7 +302,63 @@ struct node* linked_list_examples() {
   result = get_nth(NULL,10);
   assert_equals(NULL,result);
 //  printf("result->data is %d\n",result->data);
+}*/
+
+void print_list(struct node* head) {
+  struct node* current = head;
+  int index = 0;
+  while (current != NULL) {
+    printf("{%d:%d} -> ",index,current->data);
+    current = current -> next;
+    index++;
+  }
+  printf("NULL\n");
 }
+
+void delete_list(struct node* head) {
+  struct node* current = head;
+  int index = 0;
+  while (current != NULL) {
+    struct node* toDelete = current;
+    current = current -> next;
+    free(toDelete);
+    index++;
+  }
+}
+
+void append_data(struct node** headRef, int data) {
+  if (headRef==NULL) {
+    return;
+  }
+  struct node* newNode = (struct node*) malloc(sizeof(struct node));
+  newNode->data = data;
+  newNode->next = NULL;
+  if (*headRef == NULL) {
+    *headRef = newNode;
+  } else {
+    struct node* current = *headRef;
+    while (current->next != NULL) {
+      current = current->next;
+    }
+    current->next = newNode;
+  }
+}
+
+
+
+struct node* linked_list_append_data_example() {
+  struct node* head = NULL;
+  append_data(&head, 300);
+  append_data(&head, 301);
+  append_data(&head, 302);
+  append_data(&head, 303);
+  print_list(head);
+  delete_list(head);
+}
+
+
+
+
 
 int main(void)
 {
@@ -312,7 +369,8 @@ int main(void)
   //string_examples2();
   //string_examples3();
   //concat_examples();
-  linked_list_examples();
+  //linked_list_examples();
+  linked_list_append_data_example();
   printf("\n\n");
   return 0;
 }
