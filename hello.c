@@ -344,16 +344,56 @@ void append_data(struct node** headRef, int data) {
   }
 }
 
+int pop(struct node** headPtrPtr) {
+  if (headPtrPtr == NULL) {
+    printf("Error: Cannot pop list because headPtrPtr is NULL\n");
+    return 0;
+  }
+  struct node* headPtr = *headPtrPtr;
+  if (headPtr == NULL) {
+      printf("Error: Cannot pop list because list is empty\n");
+      return 0;
+  }
+  struct node* newHeadPtr = headPtr->next;
+  int data = headPtr->data;
+  *headPtrPtr = newHeadPtr;
+  headPtr->next = NULL;
+  free(headPtr);
+  return data;
+}
 
 
 struct node* linked_list_append_data_example() {
-  struct node* head = NULL;
-  append_data(&head, 300);
-  append_data(&head, 301);
-  append_data(&head, 302);
-  append_data(&head, 303);
-  print_list(head);
-  delete_list(head);
+  struct node* headPtr = NULL;
+  append_data(&headPtr, 300);
+  append_data(&headPtr, 301);
+  append_data(&headPtr, 302);
+  append_data(&headPtr, 303);
+  print_list(headPtr);
+
+  int popValue = pop(&headPtr);
+  printf("Popped %d\n",popValue);
+  print_list(headPtr);
+
+  popValue = pop(&headPtr);
+  printf("Popped %d\n",popValue);
+  print_list(headPtr);
+
+  popValue = pop(&headPtr);
+  printf("Popped %d\n",popValue);
+  print_list(headPtr);
+
+  popValue = pop(&headPtr);
+  printf("Popped %d\n",popValue);
+  print_list(headPtr);
+
+  popValue = pop(&headPtr);
+  printf("Popped %d\n",popValue);
+  print_list(headPtr);
+
+  popValue = pop(NULL);
+
+  delete_list(headPtr);  
 }
 
 
