@@ -315,15 +315,19 @@ void print_list(struct node* head) {
   printf("NULL\n");
 }
 
-void delete_list(struct node* head) {
-  struct node* current = head;
-  int index = 0;
-  while (current != NULL) {
-    struct node* toDelete = current;
-    current = current -> next;
-    free(toDelete);
-    index++;
+void delete_list(struct node** headPtrPtr) {
+  if (headPtrPtr == NULL) {
+    return;
   }
+  struct node* currentPtr = *headPtrPtr;
+  struct node* nextPtr = NULL;
+  while (currentPtr != NULL) {
+    nextPtr = currentPtr->next;
+    currentPtr->next = NULL;
+    free(currentPtr);
+    currentPtr = nextPtr;
+  }
+  *headPtrPtr = NULL;
 }
 
 void append_data(struct node** headRef, int data) {
@@ -371,6 +375,7 @@ struct node* linked_list_append_data_example() {
   append_data(&headPtr, 303);
   print_list(headPtr);
 
+/*
   int popValue = pop(&headPtr);
   printf("Popped %d\n",popValue);
   print_list(headPtr);
@@ -392,8 +397,9 @@ struct node* linked_list_append_data_example() {
   print_list(headPtr);
 
   popValue = pop(NULL);
-
-  delete_list(headPtr);  
+*/
+  delete_list(&headPtr);  
+  print_list(headPtr);  
 }
 
 
