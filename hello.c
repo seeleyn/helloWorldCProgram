@@ -375,7 +375,7 @@ struct node* linked_list_append_data_example() {
   append_data(&headPtr, 303);
   print_list(headPtr);
 
-/*
+
   int popValue = pop(&headPtr);
   printf("Popped %d\n",popValue);
   print_list(headPtr);
@@ -397,10 +397,72 @@ struct node* linked_list_append_data_example() {
   print_list(headPtr);
 
   popValue = pop(NULL);
-*/
+
   delete_list(&headPtr);  
   print_list(headPtr);  
 }
+
+void insert_nth(struct node** headPtrPtr, int data, int n) {
+  if (headPtrPtr == NULL) {
+    printf("Error: headPtrPtr input parameter is NULL");
+    return;
+  }
+  struct node* headPtr = *headPtrPtr;
+  struct node* newNodePtr = (struct node*) malloc(sizeof(struct node));
+  newNodePtr->data = data;
+  newNodePtr->next = NULL;
+
+  if (headPtr==NULL) {
+    if (n==0) {
+      *headPtrPtr = newNodePtr;
+    } else printf("Error: When adding to an empty list you can only add at n=0, not n=%d\n",data);
+  } else {
+    if (n==0) {
+      newNodePtr->next = *headPtrPtr;
+      *headPtrPtr = newNodePtr;
+    } else {
+      int index = 1;
+      struct node* prevPtr = *headPtrPtr;
+      struct node* currentPtr = (*headPtrPtr)->next;
+      while (currentPtr != NULL && index < n) {
+        prevPtr = currentPtr;
+        currentPtr = currentPtr->next;
+        index++;
+      }
+      if (index != n) {
+        printf("Error: The list is to short to insert at index %d, list has only %d elements\n",n,index);
+      } else {
+        prevPtr->next = newNodePtr;
+        newNodePtr->next = currentPtr;
+      }
+    }
+
+  }
+}
+
+void insert_nth_examples() {
+  struct node* headPtr = NULL;
+  insert_nth(&headPtr, 100, 0);
+  print_list(headPtr);
+
+  insert_nth(&headPtr, 101, 0);
+  print_list(headPtr);
+
+  insert_nth(&headPtr, 102, 1);
+  print_list(headPtr);
+
+  insert_nth(&headPtr, 103, 1);
+  print_list(headPtr);
+
+  insert_nth(&headPtr, 104, 3);
+  print_list(headPtr);
+
+  insert_nth(&headPtr, 105, 5);
+  print_list(headPtr);
+
+  delete_list(&headPtr);
+}
+
 
 
 
@@ -416,7 +478,8 @@ int main(void)
   //string_examples3();
   //concat_examples();
   //linked_list_examples();
-  linked_list_append_data_example();
+  //linked_list_append_data_example();
+  insert_nth_examples();
   printf("\n\n");
   return 0;
 }
