@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "functions.h"
+#include <assert.h>
 
 
 void assert_equals_int(int expected, int actual) {
@@ -403,7 +404,9 @@ struct node* linked_list_append_data_example() {
 }
 
 struct node* create_node(int data) {
-  return (struct node*) malloc(sizeof(struct node));
+  struct node* newNodePtr = (struct node*) malloc(sizeof(struct node));
+  newNodePtr->data = data;
+  newNodePtr->next = NULL;
 }
 
 
@@ -414,8 +417,7 @@ void insert_nth(struct node** headPtrPtr, int data, int n) {
   }
   struct node* headPtr = *headPtrPtr;
   struct node* newNodePtr = create_node(data);
-  newNodePtr->data = data;
-  newNodePtr->next = NULL;
+
 
   if (headPtr==NULL) {
     if (n==0) {
@@ -469,6 +471,57 @@ void insert_nth_examples() {
 }
 
 
+void sorted_insert(struct node** headPtrPtr, int data) {
+  assert(headPtrPtr != NULL);  
+  struct node* newNodePtr = create_node(data);
+  if (*headPtrPtr == NULL) {
+    *headPtrPtr = newNodePtr;
+  } else if (newNodePtr->data < (*headPtrPtr)->data) {
+    struct node* oldHead = *headPtrPtr;
+    *headPtrPtr = newNodePtr;
+    newNodePtr->next = oldHead;
+  } else {
+    struct node* previous = *headPtrPtr;
+    struct node* current = (*headPtrPtr)->next;
+    while (current != NULL && current->data <= newNodePtr->data) {
+      previous = current;
+      current = current->next;
+    }
+    previous->next = newNodePtr;
+    newNodePtr->next = current;
+  }
+}
+
+
+void sorted_insert_examples() {
+  struct node* headPtr = NULL;
+
+  sorted_insert(&headPtr, 105);
+  print_list(headPtr);
+  
+  sorted_insert(&headPtr, 102);
+  print_list(headPtr);
+
+  sorted_insert(&headPtr, 103);
+  print_list(headPtr);
+
+  sorted_insert(&headPtr, 106);
+  print_list(headPtr);
+
+  sorted_insert(&headPtr, 100);
+  print_list(headPtr);
+
+  sorted_insert(&headPtr, 101);
+  print_list(headPtr);
+
+  sorted_insert(&headPtr, 104);
+  print_list(headPtr);
+
+  sorted_insert(&headPtr, 107);
+  print_list(headPtr);
+
+  delete_list(&headPtr);
+}
 
 
 
@@ -484,7 +537,8 @@ int main(void)
   //concat_examples();
   //linked_list_examples();
   //linked_list_append_data_example();
-  insert_nth_examples();
+  //insert_nth_examples();
+  sorted_insert_examples();
   printf("\n\n");
   return 0;
 }
