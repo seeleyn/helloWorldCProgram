@@ -402,13 +402,18 @@ struct node* linked_list_append_data_example() {
   print_list(headPtr);  
 }
 
+struct node* create_node(int data) {
+  return (struct node*) malloc(sizeof(struct node));
+}
+
+
 void insert_nth(struct node** headPtrPtr, int data, int n) {
   if (headPtrPtr == NULL) {
     printf("Error: headPtrPtr input parameter is NULL");
     return;
   }
   struct node* headPtr = *headPtrPtr;
-  struct node* newNodePtr = (struct node*) malloc(sizeof(struct node));
+  struct node* newNodePtr = create_node(data);
   newNodePtr->data = data;
   newNodePtr->next = NULL;
 
