@@ -524,7 +524,49 @@ void sorted_insert_examples() {
 }
 
 
+void append_second_list(struct node** aPtrPtr, struct node** bPtrPtr) {
+  assert(aPtrPtr != NULL);
+  assert(bPtrPtr != NULL);
+ 
+  if (*aPtrPtr == NULL) {
+    *aPtrPtr = *bPtrPtr;
+    *bPtrPtr = NULL;
+  } else {
+    struct node* aPtr = *aPtrPtr;
+    while (aPtr->next != NULL) {
+      aPtr = aPtr->next;
+    }
+    aPtr->next = *bPtrPtr;
+    *bPtrPtr = NULL;    
+  }
+}
 
+void append_second_list_examples() {
+  struct node* aPtr = NULL;
+  append_data(&aPtr,1);
+  append_data(&aPtr,3);
+  append_data(&aPtr,5);
+  append_data(&aPtr,7);
+  print_list(aPtr);
+
+  struct node* bPtr = NULL;
+  append_data(&bPtr,2);
+  append_data(&bPtr,4);
+  append_data(&bPtr,6);
+  print_list(bPtr);
+
+  printf("Appending list b to end of a\n");
+  append_second_list(&aPtr,&bPtr);
+  printf("list a is ");
+  print_list(aPtr);
+  printf("list b is ");
+  print_list(bPtr);
+
+  delete_list(&aPtr);
+  delete_list(&bPtr);
+}
+
+//void append_data(struct node** headRef, int data)
 
 int main(void)
 {
@@ -538,7 +580,8 @@ int main(void)
   //linked_list_examples();
   //linked_list_append_data_example();
   //insert_nth_examples();
-  sorted_insert_examples();
+  //sorted_insert_examples();
+  append_second_list_examples();
   printf("\n\n");
   return 0;
 }
