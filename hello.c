@@ -541,13 +541,6 @@ void append_second_list(struct node** aPtrPtr, struct node** bPtrPtr) {
   }
 }
 
-
-
-
-
-
-
-
 void front_back_split(struct node* sourcePtr, struct node** frontPtrPtr, struct node** backPtrPtr) {
   assert(frontPtrPtr != NULL);
   assert(backPtrPtr != NULL);
@@ -569,30 +562,42 @@ void front_back_split(struct node* sourcePtr, struct node** frontPtrPtr, struct 
   }
 }
 
+
+void remove_duplicates(struct node* sourcePtr) {
+  if (sourcePtr == NULL) {
+    return;
+  }
+  struct node* currentPtr = sourcePtr;
+  while (currentPtr->next != NULL) {
+    struct node* nextPtr = currentPtr->next;
+    if (nextPtr->data == currentPtr->data) {
+      currentPtr->next = nextPtr->next;
+      free(nextPtr);   
+    } else {
+      currentPtr = currentPtr->next;
+    }
+  }
+}
+
 void examples() {
   struct node* sourcePtr = NULL;
   int i = 0;
-  for (i; i < 7; i++) {
-    append_data(&sourcePtr,100 + i);
+  for (i; i < 5; i++) {
+    int j = 0;
+    for (j; j<3; j++) {
+      append_data(&sourcePtr,100+i);      
+    }
   }
   printf("source list: ");
   print_list(sourcePtr);
 
-  struct node* frontPtr = NULL;
-  struct node* backPtr = NULL;
-  printf("Performing front back split! --------------------------\n");
-  front_back_split(sourcePtr, &frontPtr, &backPtr);
+  remove_duplicates(sourcePtr);
 
-  printf("front list: ");
-  print_list(frontPtr);
-  printf("back list: ");
-  print_list(backPtr);
-
-  delete_list(&frontPtr);
-  delete_list(&backPtr);
+  printf("after removing duplicates: ");
+  print_list(sourcePtr);
+  delete_list(&sourcePtr);
 }
 
-//void append_data(struct node** headRef, int data)
 
 int main(void)
 {
