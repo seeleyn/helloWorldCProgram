@@ -579,23 +579,44 @@ void remove_duplicates(struct node* sourcePtr) {
   }
 }
 
+void move_node(struct node** sourcePtrPtr, struct node** destPtrPtr) {
+  assert(sourcePtrPtr != NULL);
+  assert(destPtrPtr != NULL);
+  if (*sourcePtrPtr != NULL) {
+    struct node* transferPtr = *sourcePtrPtr;
+    *sourcePtrPtr = (*sourcePtrPtr)->next;
+    transferPtr->next = *destPtrPtr;
+    *destPtrPtr = transferPtr;
+  }
+}
+
 void examples() {
-  struct node* sourcePtr = NULL;
+  struct node* list1Ptr = NULL;
   int i = 0;
   for (i; i < 5; i++) {
-    int j = 0;
-    for (j; j<3; j++) {
-      append_data(&sourcePtr,100+i);      
-    }
+      append_data(&list1Ptr,100+i);      
   }
-  printf("source list: ");
-  print_list(sourcePtr);
+  struct node* list2Ptr = NULL;
+  i = 0;
+  for (i; i < 5; i++) {
+      append_data(&list2Ptr,200+i);      
+  }
 
-  remove_duplicates(sourcePtr);
+  printf("list 1: ");
+  print_list(list1Ptr);
+  printf("list 2: ");
+  print_list(list2Ptr);
 
-  printf("after removing duplicates: ");
-  print_list(sourcePtr);
-  delete_list(&sourcePtr);
+  move_node(&list1Ptr,&list2Ptr);
+  printf("Moving head of list 1 to list 2\n");
+
+  printf("list 1: ");
+  print_list(list1Ptr);
+  printf("list 2: ");
+  print_list(list2Ptr);
+
+  delete_list(&list1Ptr);
+  delete_list(&list2Ptr);
 }
 
 
