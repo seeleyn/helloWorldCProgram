@@ -590,33 +590,102 @@ void move_node(struct node** sourcePtrPtr, struct node** destPtrPtr) {
   }
 }
 
+struct node* copy_list(struct node* listPtr) {
+  struct node* newHeadPtr;
+  if (listPtr==NULL) {
+    newHeadPtr = NULL;
+  } else {
+    newHeadPtr = create_node(listPtr->data);
+    struct node* newListCurrentPtr = newHeadPtr;
+    struct node* oldListCurrentPtr = listPtr->next;    
+    while (oldListCurrentPtr != NULL) { 
+      newListCurrentPtr->next = create_node(oldListCurrentPtr->data);
+      newListCurrentPtr = newListCurrentPtr->next;
+      oldListCurrentPtr = oldListCurrentPtr->next;
+    }  
+  } 
+  return newHeadPtr;
+}
+
+struct node* sorted_merge(struct node* list1Ptr, struct node* list2Ptr) {
+  if (list2Ptr == NULL) return copy_list(list1Ptr);
+  if (list1Ptr == NULL) return copy_list(list2Ptr);
+  struct node* aPtr = list1Ptr;
+  struct node* bPtr = list2Ptr;
+  struct node* headPtr = NULL;
+  struct node* currentPtr = NULL;
+  
+  if (aPtr->data <= bPtr->data) {
+    headPtr = create_node(aPtr->data);
+    aPtr = aPtr->next; 
+  } else {
+    headPtr = create_node(bPtr->data);
+    bPtr = bPtr->next;
+  }
+  currentPtr = headPtr;
+
+  while (aPtr != NULL && bPtr != NULL) {
+    int newData = 0;
+    if (aPtr->data <= bPtr->data) {
+      newData = aPtr->data;
+      aPtr = aPtr->next;
+    } else {
+      newData = bPtr->data;
+      bPtr = bPtr->next;
+    }
+    currentPtr->next = create_node(newData);
+    currentPtr = currentPtr->next;
+  }
+  
+  if (aPtr == NULL) {
+    while (bPtr != NULL) {
+      currentPtr->next = create_node(bPtr->data);
+      currentPtr = currentPtr->next;
+      bPtr = bPtr->next;
+    }
+  } else if (bPtr == NULL) {
+    while (aPtr != NULL) {
+      currentPtr->next = create_node(aPtr->data);
+      currentPtr = currentPtr->next;
+      aPtr = aPtr->next;
+    }
+  }
+  return headPtr;
+}
+
+
+
 void examples() {
   struct node* list1Ptr = NULL;
-  int i = 0;
-  for (i; i < 5; i++) {
-      append_data(&list1Ptr,100+i);      
+  int i = 1;
+  for (i; i < 10; i+=1) {
+      append_data(&list1Ptr,i);      
   }
   struct node* list2Ptr = NULL;
   i = 0;
-  for (i; i < 5; i++) {
-      append_data(&list2Ptr,200+i);      
+  for (i; i < 12; i+=3) {
+      append_data(&list2Ptr,i);      
   }
 
   printf("list 1: ");
   print_list(list1Ptr);
+
   printf("list 2: ");
   print_list(list2Ptr);
 
-  move_node(&list1Ptr,&list2Ptr);
-  printf("Moving head of list 1 to list 2\n");
+  struct node* sortedListPtr = sorted_merge(list1Ptr,list2Ptr);
+  printf("Creating new list of merged list 1 and list 2\n");
 
   printf("list 1: ");
   print_list(list1Ptr);
   printf("list 2: ");
   print_list(list2Ptr);
+  printf("sorted: ");
+  print_list(sortedListPtr);
 
   delete_list(&list1Ptr);
   delete_list(&list2Ptr);
+  delete_list(&sortedListPtr);
 }
 
 
