@@ -653,39 +653,40 @@ struct node* sorted_merge(struct node* list1Ptr, struct node* list2Ptr) {
   return headPtr;
 }
 
+struct node* reverse(struct node* headPtr) {
+  if (headPtr == NULL) {
+    return;
+  }
+  struct node* prevPtr = NULL;
+  struct node* currPtr = headPtr;
+  struct node* nextPtr = NULL;
+  while (currPtr != NULL) {
+    nextPtr = currPtr->next;
+    currPtr->next = prevPtr;
+    prevPtr = currPtr;
+    currPtr = nextPtr;
+  }
+  return prevPtr;
 
+}
 
 void examples() {
   struct node* list1Ptr = NULL;
-  int i = 1;
-  for (i; i < 10; i+=1) {
-      append_data(&list1Ptr,i);      
-  }
-  struct node* list2Ptr = NULL;
-  i = 0;
-  for (i; i < 12; i+=3) {
-      append_data(&list2Ptr,i);      
+  int i = 0;
+  for (i; i < 5; i+=1) {
+      append_data(&list1Ptr,100+i);      
   }
 
   printf("list 1: ");
   print_list(list1Ptr);
 
-  printf("list 2: ");
+  struct node* list2Ptr = reverse(list1Ptr);
+
+  printf("list reversed is: ");
   print_list(list2Ptr);
 
-  struct node* sortedListPtr = sorted_merge(list1Ptr,list2Ptr);
-  printf("Creating new list of merged list 1 and list 2\n");
 
-  printf("list 1: ");
-  print_list(list1Ptr);
-  printf("list 2: ");
-  print_list(list2Ptr);
-  printf("sorted: ");
-  print_list(sortedListPtr);
-
-  delete_list(&list1Ptr);
   delete_list(&list2Ptr);
-  delete_list(&sortedListPtr);
 }
 
 
