@@ -3,6 +3,7 @@
 #include <string.h>
 #include "functions.h"
 #include "linkedList.h"
+#include "doublyLinkedList.h"
 
 
 void assert_equals_int(int expected, int actual) {
@@ -375,8 +376,6 @@ void sorted_insert_examples() {
 }
 
 
-
-
 void reverse_examples() {
   struct node* list1Ptr = NULL;
   int i = 0;
@@ -397,6 +396,18 @@ void reverse_examples() {
   delete_list(&list2Ptr);
 }
 
+void doubly_linked_list_examples() {
+  printf("Testing doubly linked lists\n");
+  struct node2LL* list1Ptr = NULL;
+  int i=0;
+  for (i; i< 5; i+=1) {
+    append_data2LL(&list1Ptr,100+i);
+  }
+//  print_list2LL(list1Ptr);
+  there_and_back_again2LL(list1Ptr);
+  delete_list2LL(&list1Ptr);
+}
+
 
 int main(void)
 {
@@ -411,7 +422,8 @@ int main(void)
   //linked_list_append_data_example();
   //insert_nth_examples();
   //sorted_insert_examples();
-  reverse_examples();
+  //reverse_examples();
+  doubly_linked_list_examples();
   printf("\n\n");
   return 0;
 }
