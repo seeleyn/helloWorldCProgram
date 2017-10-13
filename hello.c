@@ -412,6 +412,29 @@ void doubly_linked_list_examples() {
   delete_list2LL(&list1Ptr);
 }
 
+void printBits(size_t const size, void const * const ptr)
+{
+    unsigned char *b = (unsigned char*) ptr;
+    unsigned char byte;
+    int i, j;
+
+    for (i=size-1;i>=0;i--)
+    {
+        for (j=7;j>=0;j--)
+        {
+            byte = (b[i] >> j) & 1;
+            printf("%u", byte);
+        }
+    }
+    puts("");
+}
+
+void bit_examples() {
+  char c1 = 0xF0;
+  printBits(sizeof(c1),&c1);
+  c1= c1 | 0x03;
+  printBits(sizeof(c1),&c1);
+}
 
 int main(void)
 {
@@ -427,7 +450,8 @@ int main(void)
   //insert_nth_examples();
   //sorted_insert_examples();
   //reverse_examples();
-  doubly_linked_list_examples();
+  //doubly_linked_list_examples();
+  bit_examples();
   printf("\n\n");
   return 0;
 }
