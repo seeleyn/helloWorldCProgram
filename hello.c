@@ -400,10 +400,14 @@ void doubly_linked_list_examples() {
   printf("Testing doubly linked lists\n");
   struct node2LL* list1Ptr = NULL;
   int i=0;
-  for (i; i< 5; i+=1) {
+  for (i; i<10; i+=1) {
     append_data2LL(&list1Ptr,100+i);
   }
-//  print_list2LL(list1Ptr);
+  there_and_back_again2LL(list1Ptr);
+
+  delete_node2LL(&list1Ptr,105);
+  
+  printf("After delete\n");
   there_and_back_again2LL(list1Ptr);
   delete_list2LL(&list1Ptr);
 }

@@ -54,9 +54,12 @@ void there_and_back_again2LL(struct node2LL* headPtr) {
       index--;
       printf("{%d:%d} -> ",index,currentPtr->data);
     }
+    printf("NULL\n");
+  } else {
+    printf("List is NULL (forwards or backwards)\n");
   }
-  printf("NULL\n");
 }
+
 
 void delete_list2LL(struct node2LL** headPtrPtr) {
   if (headPtrPtr == NULL) {
@@ -72,4 +75,37 @@ void delete_list2LL(struct node2LL** headPtrPtr) {
     currentPtr = nextPtr;
   }
   *headPtrPtr = NULL;
+}
+
+
+//Deletes the FIRST node whose data matches the data param
+void delete_node2LL(struct node2LL** headPtrPtr, int data) {
+  assert(headPtrPtr != NULL);
+  if (*headPtrPtr == NULL) {
+    return;
+  }
+  if ((*headPtrPtr)->data == data) {
+    struct node2LL* newHeadPtr = (*headPtrPtr)->next;
+    if (newHeadPtr != NULL) {
+      newHeadPtr->previous = NULL;
+    }
+    free(*headPtrPtr);
+    *headPtrPtr = newHeadPtr;
+  } else {
+    struct node2LL* currentPtr = *headPtrPtr;
+    while (currentPtr != NULL && currentPtr->data != data) {
+      currentPtr = currentPtr->next;
+    }
+    if (currentPtr != NULL) {
+      struct node2LL* prevPtr = currentPtr->previous;  
+      struct node2LL* nextPtr = currentPtr->next;
+      if (prevPtr != NULL) {
+        prevPtr->next = nextPtr;
+      }
+      if (nextPtr != NULL) {
+        nextPtr->previous = prevPtr;
+      }
+      free(currentPtr);
+    }
+  }
 }
