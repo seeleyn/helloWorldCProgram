@@ -424,16 +424,70 @@ void printBits(size_t const size, void const * const ptr)
         {
             byte = (b[i] >> j) & 1;
             printf("%u", byte);
+            if (j%4==0) {
+              printf(" ");
+            }
         }
     }
     puts("");
 }
 
+int get_nth_bit(int num, int n) {
+  int checkBit = 1 << n;
+  int result = num & checkBit;
+  return result == checkBit ? 1 : 0;
+}
+
+int set_nth_bit_to_1(int num, int n) {
+  int checkBit = 1 << n;
+  return num | checkBit;
+}
+
+int set_nth_bit_to_0(int num, int n) {
+  int checkBit = 1 << n;
+  return num & ~checkBit;
+}
+
+void print_bits(int input) {
+  int numOfBits = sizeof(input) * 8;
+  int i=numOfBits - 1;
+  // checkBit must be unsighted so that right shifts 
+  // do not cause 1's to be filled in from the right
+  unsigned int checkBit = 1 << (numOfBits - 1);
+
+  for (i; i >=0; i--) {
+    int temp = input & checkBit;
+    if (temp == checkBit) {
+      printf("1");
+    } else {
+      printf("0");
+    }
+    if (i%4==0) {
+      printf(" ");
+    }
+    checkBit = checkBit >> 1;
+  }
+  printf("\n");
+}
+
 void bit_examples() {
-  char c1 = 0xF0;
-  printBits(sizeof(c1),&c1);
-  c1= c1 | 0x03;
-  printBits(sizeof(c1),&c1);
+  int input = 0xAEB3CDEA;
+  printf("expect: ");
+  printBits(sizeof(input),&input);
+  printf("actual: ");
+  print_bits(input);
+
+//  int result = set_nth_bit_to_0(input,5);
+//  printf("output is ");
+//  printBits(sizeof(result),&result);
+
+/*
+  int i;
+  for (i=31;i>=0;i--) {
+    int result = set_nth_bit_to_0(input,i);
+    printBits(sizeof(result),&result);
+  }
+//*/
 }
 
 int main(void)
