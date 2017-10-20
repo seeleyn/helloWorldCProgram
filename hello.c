@@ -470,12 +470,28 @@ void print_bits(int input) {
   printf("\n");
 }
 
+int count_1_bits(int input) {
+  int numOfBits = sizeof(input) * 8;
+  unsigned int checkBit = 1 << (numOfBits - 1);
+  int numOfOneBits = 0;
+  while (checkBit > 0) {
+    int temp = input & checkBit;
+    if (temp == checkBit) {
+      numOfOneBits++;
+    }
+    checkBit = checkBit >> 1;
+  }
+  return numOfOneBits;
+}
+
 void bit_examples() {
-  int input = 0xAEB3CDEA;
+  int input = 0xFEFFAF0F;
   printf("expect: ");
   printBits(sizeof(input),&input);
   printf("actual: ");
   print_bits(input);
+  int numOf1Bits = count_1_bits(input);
+  printf("The number of 1 bits is %d\n",numOf1Bits);
 
 //  int result = set_nth_bit_to_0(input,5);
 //  printf("output is ");
