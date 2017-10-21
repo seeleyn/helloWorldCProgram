@@ -470,7 +470,7 @@ void print_bits(int input) {
   printf("\n");
 }
 
-int count_1_bits(int input) {
+int count_1s_unoptimized(int input) {
   int numOfBits = sizeof(input) * 8;
   unsigned int checkBit = 1 << (numOfBits - 1);
   int numOfOneBits = 0;
@@ -484,14 +484,25 @@ int count_1_bits(int input) {
   return numOfOneBits;
 }
 
+int count_1s_optimized(int num) {
+  int counter = 0;
+  while (num != 0) {
+    num = num & (num - 1);
+    counter++;
+  }
+  return counter;
+}
+
 void bit_examples() {
-  int input = 0xFEFFAF0F;
+  int input = -401;
   printf("expect: ");
   printBits(sizeof(input),&input);
   printf("actual: ");
   print_bits(input);
-  int numOf1Bits = count_1_bits(input);
-  printf("The number of 1 bits is %d\n",numOf1Bits);
+  int numOf1Bits = count_1s_unoptimized(input);
+  printf("The number of 1 bits from method 1 is %d\n",numOf1Bits);
+  int numOf1Bits2 = count_1s_optimized(input);
+  printf("The number of 1 bits from method 2 is %d\n",numOf1Bits2);
 
 //  int result = set_nth_bit_to_0(input,5);
 //  printf("output is ");
