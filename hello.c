@@ -5,6 +5,7 @@
 #include "linkedList.h"
 #include "doublyLinkedList.h"
 
+const int BITS_PER_BYTE = 8;
 
 void assert_equals_int(int expected, int actual) {
   bool passed = (expected == actual);
@@ -471,7 +472,7 @@ void print_bits(int input) {
 }
 
 int count_1s_unoptimized(int input) {
-  int numOfBits = sizeof(input) * 8;
+  int numOfBits = sizeof(input) * BITS_PER_BYTE;
   unsigned int checkBit = 1 << (numOfBits - 1);
   int numOfOneBits = 0;
   while (checkBit > 0) {
@@ -493,28 +494,54 @@ int count_1s_optimized(int num) {
   return counter;
 }
 
-void bit_examples() {
-  int input = -401;
-  printf("expect: ");
-  printBits(sizeof(input),&input);
-  printf("actual: ");
-  print_bits(input);
-  int numOf1Bits = count_1s_unoptimized(input);
-  printf("The number of 1 bits from method 1 is %d\n",numOf1Bits);
-  int numOf1Bits2 = count_1s_optimized(input);
-  printf("The number of 1 bits from method 2 is %d\n",numOf1Bits2);
-
-//  int result = set_nth_bit_to_0(input,5);
-//  printf("output is ");
-//  printBits(sizeof(result),&result);
-
-/*
+int reverse_bits(int num) {
+  int numOfBits = sizeof(num) * 8;
+  int result = 0;
   int i;
-  for (i=31;i>=0;i--) {
-    int result = set_nth_bit_to_0(input,i);
-    printBits(sizeof(result),&result);
+  for (i=0; i<numOfBits; i++) {
+    int bit = get_nth_bit(num, i);
+    int resultBitIndex = numOfBits-i-1;
+    if (bit == 0) {
+      result = set_nth_bit_to_0(result, resultBitIndex);
+    } else {
+      result = set_nth_bit_to_1(result, resultBitIndex);
+    }
   }
-//*/
+  return result;
+}
+
+int reverse_bits2(int num) {
+  int bitsLeftToShift = sizeof(num) * BITS_PER_BYTE;
+  int result = 0;
+  int i;
+  while (num != 0) {
+    int least_sig_input_bit = num & 1;
+    result = result | 1;
+    num >> 1;
+    result << 1;
+    bitsLeftToShift--;
+  }
+  result << bitsLeftToShift;
+  return result;
+}
+
+void bit_examples() {
+  int input = 0x8000E0FE;//0x7E5C3B1A;
+  printf("input: ");
+  printBits(sizeof(input),&input);
+
+  int result = reverse_bits(input);
+  printf("result from method 1: ");
+  printBits(sizeof(result),&result);
+
+  int result2 = reverse_bits(input);
+  printf("result from method 2: ");
+  printBits(sizeof(result2),&result2);
+
+  printf("Making sure the input hasn't changed\n");
+  printf("input: ");
+  printBits(sizeof(input),&input);
+  //TODO check that the input hasn't been modified;
 }
 
 int main(void)
